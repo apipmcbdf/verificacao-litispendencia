@@ -1,4 +1,4 @@
-// script.js (versão compatível com HTML puro)
+// script.js (versão compatível com HTML puro, com logs de depuração)
 
 // Inicialização do Firebase
 const firebaseConfig = {
@@ -58,7 +58,9 @@ loginBtn.addEventListener("click", async () => {
 async function loadCpfs() {
   cpfList.innerHTML = "";
   const snapshot = await db.collection("cpfsPendentes").where("verificado", "!=", true).get();
+  console.log("Documentos encontrados:", snapshot.size);
   snapshot.forEach((doc) => {
+    console.log("CPF encontrado:", doc.data().cpf);
     const li = document.createElement("li");
     li.textContent = doc.data().cpf;
     li.addEventListener("click", () => loadDetails(doc.id));
