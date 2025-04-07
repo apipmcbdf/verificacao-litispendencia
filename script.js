@@ -1,4 +1,4 @@
-// script.js (versão compatível com HTML puro, com logs de depuração)
+// script.js (com registro de responsável pela verificação)
 
 // Inicialização do Firebase
 const firebaseConfig = {
@@ -104,7 +104,8 @@ enviarBtn.addEventListener("click", async () => {
       processo: auxLitis === "sim" ? document.getElementById("aux-processo").value : "",
       advogado: auxLitis === "sim" ? document.getElementById("aux-advogado").value : "",
       observacoes: auxLitis === "sim" ? document.getElementById("aux-observacoes").value : ""
-    }
+    },
+    responsavel: firebase.auth().currentUser ? firebase.auth().currentUser.email : "desconhecido"
   };
 
   await db.collection("cpfsPendentes").doc(currentDocId).update(dataToUpdate);
