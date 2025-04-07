@@ -1,6 +1,5 @@
-// script.js (com validação e responsável)
+// script.js (agora mostrando apenas o processo pendente)
 
-// Inicialização do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBar0Am_kiilFZt6RqCn0gk4IyUFH9D8Is",
   authDomain: "verificacao-litispendencia.firebaseapp.com",
@@ -57,14 +56,18 @@ loginBtn.addEventListener("click", async () => {
 
 async function loadCpfs() {
   cpfList.innerHTML = "";
-  const snapshot = await db.collection("cpfsPendentes").where("verificado", "!=", true).get();
-  console.log("Documentos encontrados:", snapshot.size);
+  const snapshot = await db.collection("cpfsPendentes").get();
   snapshot.forEach((doc) => {
-    console.log("CPF encontrado:", doc.data().cpf);
-    const li = document.createElement("li");
-    li.textContent = doc.data().cpf;
-    li.addEventListener("click", () => loadDetails(doc.id));
-    cpfList.appendChild(li);
+    const data = doc.data();
+    const vpePendente = !data.vpe?.litispendencia;
+    const auxPendente = !data.auxilio?.litispendencia;
+
+    if (vpePendente || auxPendente) {
+      const li = document.createElement("li");
+      li.textContent = data.cpf;
+      li.addEventListener("click", () => loadDetails(doc.id));
+      cpfList.appendChild(li);
+    }
   });
 }
 
@@ -79,10 +82,25 @@ async function loadDetails(docId) {
     currentDocId = docId;
     formMsg.textContent = "";
     formMsg.style.color = "green";
-    vpeSelect.value = "";
-    auxSelect.value = "";
-    vpeDetalhes.classList.add("hidden");
-    auxDetalhes.classList.add("hidden");
+
+    // Apenas mostrar VPE se ainda não tiver sido verificado
+    if (!data.vpe?.litispendencia) {
+      vpeSelect.value = "";
+      vpeDetalhes.classList.add("hidden");
+      document.getElementById("vpe-litis").parentElement.classList.remove("hidden");
+    } else {
+      document.getElementById("vpe-litis").parentElement.classList.add("hidden");
+    }
+
+    // Apenas mostrar AUX se ainda não tiver sido verificado
+    if (!data.auxilio?.litispendencia) {
+      auxSelect.value = "";
+      auxDetalhes.classList.add("hidden");
+      document.getElementById("aux-litis").parentElement.classList.remove("hidden");
+    } else {
+      document.getElementById("aux-litis").parentElement.classList.add("hidden");
+    }
+
     detailsContainer.classList.remove("hidden");
   }
 }
@@ -93,30 +111,52 @@ enviarBtn.addEventListener("click", async () => {
   const vpeLitis = vpeSelect.value;
   const auxLitis = auxSelect.value;
 
-  if (!vpeLitis || !auxLitis) {
-    formMsg.textContent = "⚠️ Por favor, selecione SIM, NÃO ou N/A para VPE e Auxílio Moradia.";
+  if (!vpeSelect.parentElement.classList.contains("hidden") && !vpeLitis) {
+    formMsg.textContent = "⚠️ Selecione SIM, NÃO ou N/A para VPE.";
     formMsg.style.color = "red";
     return;
   }
 
-  const dataToUpdate = {
-    verificado: true,
-    vpe: {
+  if (!auxSelect.parentElement.classList.contains("hidden") && !auxLitis) {
+    formMsg.textContent = "⚠️ Selecione SIM, NÃO ou N/A para Auxílio Moradia.";
+    formMsg.style.color = "red";
+    return;
+  }
+
+  const updateData = {
+    responsavel: firebase.auth().currentUser ? firebase.auth().currentUser.email : "desconhecido"
+  };
+
+  if (!vpeSelect.parentElement.classList.contains("hidden")) {
+    updateData.vpe = {
       litispendencia: vpeLitis,
       processo: vpeLitis === "sim" ? document.getElementById("vpe-processo").value : "",
       advogado: vpeLitis === "sim" ? document.getElementById("vpe-advogado").value : "",
       observacoes: vpeLitis === "sim" ? document.getElementById("vpe-observacoes").value : ""
-    },
-    auxilio: {
+    };
+  }
+
+  if (!auxSelect.parentElement.classList.contains("hidden")) {
+    updateData.auxilio = {
       litispendencia: auxLitis,
       processo: auxLitis === "sim" ? document.getElementById("aux-processo").value : "",
       advogado: auxLitis === "sim" ? document.getElementById("aux-advogado").value : "",
       observacoes: auxLitis === "sim" ? document.getElementById("aux-observacoes").value : ""
-    },
-    responsavel: firebase.auth().currentUser ? firebase.auth().currentUser.email : "desconhecido"
-  };
+    };
+  }
 
-  await db.collection("cpfsPendentes").doc(currentDocId).update(dataToUpdate);
+  // Se ambos já estavam preenchidos ou acabaram de ser, marcar como verificado
+  const doc = await db.collection("cpfsPendentes").doc(currentDocId).get();
+  const existing = doc.data();
+  const vpeChecked = vpeLitis || existing.vpe?.litispendencia;
+  const auxChecked = auxLitis || existing.auxilio?.litispendencia;
+
+  if (vpeChecked && auxChecked) {
+    updateData.verificado = true;
+  }
+
+  await db.collection("cpfsPendentes").doc(currentDocId).update(updateData);
+
   formMsg.textContent = "✅ Informações salvas com sucesso.";
   formMsg.style.color = "green";
   detailsContainer.classList.add("hidden");
