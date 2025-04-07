@@ -1,10 +1,6 @@
-// script.js
+// script.js (versão compatível com HTML puro)
 
-// CONFIGURAÇÃO FIREBASE
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, getDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
+// Inicialização do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBar0Am_kiilFZt6RqCn0gk4IyUFH9D8Is",
   authDomain: "verificacao-litispendencia.firebaseapp.com",
@@ -14,9 +10,9 @@ const firebaseConfig = {
   appId: "1:508917425774:web:172b91565d4167ddfba87f"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 const loginScreen = document.getElementById("login-screen");
 const mainPanel = document.getElementById("main-panel");
@@ -50,7 +46,7 @@ loginBtn.addEventListener("click", async () => {
   const email = emailInput.value;
   const password = passwordInput.value;
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    await auth.signInWithEmailAndPassword(email, password);
     loginScreen.classList.add("hidden");
     mainPanel.classList.remove("hidden");
     loadCpfs();
@@ -61,20 +57,19 @@ loginBtn.addEventListener("click", async () => {
 
 async function loadCpfs() {
   cpfList.innerHTML = "";
-  const q = query(collection(db, "cpfsPendentes"), where("verificado", "!=", true));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((docSnap) => {
+  const snapshot = await db.collection("cpfsPendentes").where("verificado", "!=", true).get();
+  snapshot.forEach((doc) => {
     const li = document.createElement("li");
-    li.textContent = docSnap.data().cpf;
-    li.addEventListener("click", () => loadDetails(docSnap.id));
+    li.textContent = doc.data().cpf;
+    li.addEventListener("click", () => loadDetails(doc.id));
     cpfList.appendChild(li);
   });
 }
 
 async function loadDetails(docId) {
-  const docRef = doc(db, "cpfsPendentes", docId);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
+  const docRef = db.collection("cpfsPendentes").doc(docId);
+  const docSnap = await docRef.get();
+  if (docSnap.exists) {
     const data = docSnap.data();
     cpfTitle.textContent = `Análise de: ${data.nome}`;
     nomeSpan.textContent = data.nome;
@@ -110,7 +105,7 @@ enviarBtn.addEventListener("click", async () => {
     }
   };
 
-  await updateDoc(doc(db, "cpfsPendentes", currentDocId), dataToUpdate);
+  await db.collection("cpfsPendentes").doc(currentDocId).update(dataToUpdate);
   formMsg.textContent = "Informações salvas com sucesso.";
   detailsContainer.classList.add("hidden");
   loadCpfs();
