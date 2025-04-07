@@ -1,4 +1,4 @@
-// script.js (com registro de responsável pela verificação)
+// script.js (com validação e responsável)
 
 // Inicialização do Firebase
 const firebaseConfig = {
@@ -78,6 +78,7 @@ async function loadDetails(docId) {
     cpfSpan.textContent = data.cpf;
     currentDocId = docId;
     formMsg.textContent = "";
+    formMsg.style.color = "green";
     vpeSelect.value = "";
     auxSelect.value = "";
     vpeDetalhes.classList.add("hidden");
@@ -88,8 +89,15 @@ async function loadDetails(docId) {
 
 enviarBtn.addEventListener("click", async () => {
   if (!currentDocId) return;
+
   const vpeLitis = vpeSelect.value;
   const auxLitis = auxSelect.value;
+
+  if (!vpeLitis || !auxLitis) {
+    formMsg.textContent = "⚠️ Por favor, selecione SIM, NÃO ou N/A para VPE e Auxílio Moradia.";
+    formMsg.style.color = "red";
+    return;
+  }
 
   const dataToUpdate = {
     verificado: true,
@@ -109,7 +117,8 @@ enviarBtn.addEventListener("click", async () => {
   };
 
   await db.collection("cpfsPendentes").doc(currentDocId).update(dataToUpdate);
-  formMsg.textContent = "Informações salvas com sucesso.";
+  formMsg.textContent = "✅ Informações salvas com sucesso.";
+  formMsg.style.color = "green";
   detailsContainer.classList.add("hidden");
   loadCpfs();
 });
