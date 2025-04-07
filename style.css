@@ -1,0 +1,93 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
+
+#login-screen, #main-panel {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+input, select, textarea {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #006edc;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+#main-panel {
+  display: flex;
+  gap: 20px;
+}
+
+#sidebar {
+  width: 30%;
+  background-color: #f9f9f9;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#cpf-list {
+  list-style: none;
+  padding: 0;
+}
+
+#cpf-list li {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+#cpf-list li:hover {
+  background-color: #eee;
+}
+
+#cpf-details {
+  width: 70%;
+}
+
+.objeto-processo {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fafafa;
+}

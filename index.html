@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificação de Litispendência</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div id="login-screen">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Senha" />
+    <button id="login-btn">Entrar</button>
+    <p id="login-error" class="error"></p>
+  </div>
+
+  <div id="main-panel" class="hidden">
+    <div id="sidebar">
+      <h3>CPFs Pendentes</h3>
+      <ul id="cpf-list"></ul>
+    </div>
+
+    <div id="cpf-details">
+      <h3 id="cpf-title"></h3>
+      <div id="details-container" class="hidden">
+        <p><strong>Nome:</strong> <span id="nome"></span></p>
+        <p><strong>CPF:</strong> <span id="cpf"></span></p>
+
+        <div class="objeto-processo">
+          <h4>VPE</h4>
+          <label>Possui litispendência?</label><br/>
+          <select id="vpe-litis">
+            <option value="">Selecione</option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
+          <div id="vpe-detalhes" class="hidden">
+            <input type="text" id="vpe-processo" placeholder="Número do processo" />
+            <input type="text" id="vpe-advogado" placeholder="Nome do advogado" />
+            <textarea id="vpe-observacoes" placeholder="Observações"></textarea>
+          </div>
+        </div>
+
+        <div class="objeto-processo">
+          <h4>Auxílio Moradia</h4>
+          <label>Possui litispendência?</label><br/>
+          <select id="aux-litis">
+            <option value="">Selecione</option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
+          <div id="aux-detalhes" class="hidden">
+            <input type="text" id="aux-processo" placeholder="Número do processo" />
+            <input type="text" id="aux-advogado" placeholder="Nome do advogado" />
+            <textarea id="aux-observacoes" placeholder="Observações"></textarea>
+          </div>
+        </div>
+
+        <button id="enviar-btn">Enviar</button>
+        <p id="form-msg" class="success"></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
