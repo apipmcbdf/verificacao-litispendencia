@@ -11,9 +11,9 @@ body {
   color: #333;
 }
 
-/* Classe para ocultar elementos */
+/* Classe para ocultar elementos (usando !important para garantir prioridade) */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Estilos para o overlay de login */
