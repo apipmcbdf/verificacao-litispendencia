@@ -35,13 +35,17 @@
     <header class="main-header">
       <h1>Verificação de Litispendência</h1>
     </header>
-    <div class="content-wrapper">
-      <aside id="sidebar" class="card">
-        <h3>CPFs Pendentes</h3>
-        <ul id="cpf-list"></ul>
-      </aside>
+
+    <!-- Seção de CPFs Pendentes (exibida acima) -->
+    <section class="pending-section card">
+      <h3>CPFs Pendentes</h3>
+      <ul id="cpf-list"></ul>
+    </section>
+
+    <!-- Seção de Detalhes (a área principal centralizada) -->
+    <section class="details-section">
       <div id="cpf-details" class="card">
-        <h3 id="cpf-title"></h3>
+        <h3 id="cpf-title" class="centered-text"></h3>
         <div id="details-container" class="hidden">
           <div class="detail-item">
             <p><strong>Nome:</strong> <span id="nome"></span></p>
@@ -84,7 +88,8 @@
           <p id="form-msg" class="success"></p>
         </div>
       </div>
-    </div>
+    </section>
+
   </div>
 </body>
 </html>
