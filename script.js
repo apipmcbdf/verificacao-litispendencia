@@ -1,5 +1,5 @@
-// script.js (agora mostrando apenas o processo pendente)
-
+/* script.js */
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBar0Am_kiilFZt6RqCn0gk4IyUFH9D8Is",
   authDomain: "verificacao-litispendencia.firebaseapp.com",
@@ -13,6 +13,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// Elementos do DOM
 const loginScreen = document.getElementById("login-screen");
 const mainPanel = document.getElementById("main-panel");
 const emailInput = document.getElementById("email");
@@ -34,13 +35,17 @@ const auxDetalhes = document.getElementById("aux-detalhes");
 
 let currentDocId = null;
 
+// Exibir ou ocultar detalhes de VPE conforme a seleção
 vpeSelect.addEventListener("change", () => {
   vpeDetalhes.classList.toggle("hidden", vpeSelect.value !== "sim");
 });
+
+// Exibir ou ocultar detalhes do Auxílio Moradia conforme a seleção
 auxSelect.addEventListener("change", () => {
   auxDetalhes.classList.toggle("hidden", auxSelect.value !== "sim");
 });
 
+// Função de login
 loginBtn.addEventListener("click", async () => {
   const email = emailInput.value;
   const password = passwordInput.value;
@@ -54,6 +59,7 @@ loginBtn.addEventListener("click", async () => {
   }
 });
 
+// Carregar lista de CPFs pendentes
 async function loadCpfs() {
   cpfList.innerHTML = "";
   const snapshot = await db.collection("cpfsPendentes").get();
@@ -61,7 +67,6 @@ async function loadCpfs() {
     const data = doc.data();
     const vpePendente = !data.vpe?.litispendencia;
     const auxPendente = !data.auxilio?.litispendencia;
-
     if (vpePendente || auxPendente) {
       const li = document.createElement("li");
       li.textContent = data.cpf;
@@ -71,6 +76,7 @@ async function loadCpfs() {
   });
 }
 
+// Carregar detalhes de um CPF selecionado
 async function loadDetails(docId) {
   const docRef = db.collection("cpfsPendentes").doc(docId);
   const docSnap = await docRef.get();
@@ -83,7 +89,7 @@ async function loadDetails(docId) {
     formMsg.textContent = "";
     formMsg.style.color = "green";
 
-    // Apenas mostrar VPE se ainda não tiver sido verificado
+    // Exibir a seção VPE se ainda não tiver sido verificada
     if (!data.vpe?.litispendencia) {
       vpeSelect.value = "";
       vpeDetalhes.classList.add("hidden");
@@ -92,7 +98,7 @@ async function loadDetails(docId) {
       document.getElementById("vpe-litis").parentElement.classList.add("hidden");
     }
 
-    // Apenas mostrar AUX se ainda não tiver sido verificado
+    // Exibir a seção Auxílio Moradia se ainda não tiver sido verificada
     if (!data.auxilio?.litispendencia) {
       auxSelect.value = "";
       auxDetalhes.classList.add("hidden");
@@ -105,6 +111,7 @@ async function loadDetails(docId) {
   }
 }
 
+// Enviar dados verificados
 enviarBtn.addEventListener("click", async () => {
   if (!currentDocId) return;
 
@@ -145,12 +152,11 @@ enviarBtn.addEventListener("click", async () => {
     };
   }
 
-  // Se ambos já estavam preenchidos ou acabaram de ser, marcar como verificado
+  // Marcar como verificado se ambos já estiverem preenchidos ou forem preenchidos agora
   const doc = await db.collection("cpfsPendentes").doc(currentDocId).get();
   const existing = doc.data();
   const vpeChecked = vpeLitis || existing.vpe?.litispendencia;
   const auxChecked = auxLitis || existing.auxilio?.litispendencia;
-
   if (vpeChecked && auxChecked) {
     updateData.verificado = true;
   }
