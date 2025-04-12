@@ -15,26 +15,27 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Verificação de Litispendência</h1>
-  </header>
-  <main>
-    <!-- Tela de Login -->
-    <section id="login-screen" class="card">
+  <!-- Tela de Login (modal overlay) -->
+  <div id="login-screen" class="login-wrapper">
+    <div class="login-card">
       <h2>Login</h2>
       <input type="email" id="email" placeholder="Email" />
       <input type="password" id="password" placeholder="Senha" />
       <button id="login-btn">Entrar</button>
       <p id="login-error" class="error"></p>
-    </section>
+    </div>
+  </div>
 
-    <!-- Área Principal (após o login) -->
-    <section id="main-panel" class="hidden">
+  <!-- Painel Principal (oculto até o login) -->
+  <div id="main-panel" class="hidden">
+    <header class="main-header">
+      <h1>Verificação de Litispendência</h1>
+    </header>
+    <div class="content-wrapper">
       <aside id="sidebar" class="card">
         <h3>CPFs Pendentes</h3>
         <ul id="cpf-list"></ul>
       </aside>
-
       <div id="cpf-details" class="card">
         <h3 id="cpf-title"></h3>
         <div id="details-container" class="hidden">
@@ -79,7 +80,7 @@
           <p id="form-msg" class="success"></p>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 </body>
 </html>
