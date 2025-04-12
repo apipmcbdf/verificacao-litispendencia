@@ -157,6 +157,18 @@ body {
 
 .detail-item p {
   margin: 8px 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilização dos botões de copiar para que fiquem apenas como ícones */
+.copy-btn {
+  padding: 4px 6px;
+  font-size: 1.2rem;
+  margin-left: 8px;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 /* Coluna Direita – Right Panel (Informações Adicionais) */
