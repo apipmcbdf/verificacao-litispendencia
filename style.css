@@ -1,93 +1,164 @@
-/* style.css */
+/* Reset básico e box-sizing */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #fff);
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2;
+  color: #333;
 }
 
-#login-screen, #main-panel {
-  max-width: 1000px;
-  margin: 40px auto;
+/* Cabeçalho */
+header {
+  text-align: center;
   padding: 20px;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #1e90ff;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Estrutura principal */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+}
+
+/* Estilização dos cards (login e seções) */
+.card {
+  background-color: #fff;
   border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 500px;
 }
 
-.hidden {
-  display: none;
+/* Tela de Login */
+#login-screen {
+  text-align: center;
 }
 
-input, select, textarea {
-  display: block;
+/* Área principal após login */
+#main-panel {
+  display: flex;
+  gap: 20px;
   width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-  font-size: 1rem;
+  max-width: 1000px;
+}
+
+#sidebar,
+#cpf-details {
+  flex: 1;
+  min-width: 250px;
+}
+
+#sidebar {
+  max-width: 300px;
+}
+
+/* Lista de CPFs */
+#cpf-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#cpf-list li {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s;
+}
+
+#cpf-list li:hover {
+  background: #f0f0f0;
+}
+
+/* Detalhes do registro */
+.detail-item p {
+  margin: 8px 0;
+}
+
+/* Elementos de formulário */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #1e90ff;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 15px;
 }
 
 button:hover {
-  background-color: #006edc;
+  background-color: #007acc;
 }
 
+/* Mensagens de erro e sucesso */
 .error {
-  color: red;
+  color: #d32f2f;
   margin-top: 10px;
 }
 
 .success {
-  color: green;
+  color: #388e3c;
   margin-top: 10px;
 }
 
-#main-panel {
-  display: flex;
-  gap: 20px;
+/* Ocultar elementos */
+.hidden {
+  display: none;
 }
 
-#sidebar {
-  width: 30%;
-  background-color: #f9f9f9;
-  border-right: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-#cpf-list {
-  list-style: none;
-  padding: 0;
-}
-
-#cpf-list li {
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd;
-}
-
-#cpf-list li:hover {
-  background-color: #eee;
-}
-
-#cpf-details {
-  width: 70%;
-}
-
-.objeto-processo {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fafafa;
+/* Ajustes responsivos */
+@media (min-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #main-panel {
+    width: 100%;
+  }
+  
+  .card {
+    max-width: 100%;
+  }
 }
