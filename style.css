@@ -100,7 +100,7 @@ body {
   gap: 20px;
 }
 
-/* Coluna esquerda – Left Panel (CPFs Pendentes) */
+/* Coluna Esquerda – Left Panel (CPFs Pendentes) */
 #left-panel {
   width: 300px;
 }
@@ -133,7 +133,7 @@ body {
   background: #f0f0f0;
 }
 
-/* Coluna central – Center Panel (Análise de:) */
+/* Coluna Central – Center Panel (Análise de:) */
 #center-panel {
   flex: 1;
 }
@@ -159,7 +159,7 @@ body {
   margin: 8px 0;
 }
 
-/* Coluna direita – Right Panel (Informações Adicionais) */
+/* Coluna Direita – Right Panel (Informações Adicionais) */
 #right-panel {
   width: 300px;
 }
