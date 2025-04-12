@@ -35,23 +35,31 @@
     <header class="main-header">
       <h1>Verificação de Litispendência</h1>
     </header>
-    <!-- Container das 3 colunas -->
+    <!-- Container para as 3 colunas -->
     <div class="content-wrapper">
-      <!-- Coluna esquerda: CPFs Pendentes -->
+      <!-- Coluna Esquerda: CPFs Pendentes -->
       <div id="left-panel">
         <div class="card">
           <h3>CPFs Pendentes</h3>
           <ul id="cpf-list"></ul>
         </div>
       </div>
-      <!-- Coluna central: Análise de: -->
+      <!-- Coluna Central: Análise de: -->
       <div id="center-panel">
         <div class="card">
           <h3 id="cpf-title">Análise de:</h3>
           <div id="details-container" class="hidden">
             <div class="detail-item">
-              <p><strong>Nome:</strong> <span id="nome"></span></p>
-              <p><strong>CPF:</strong> <span id="cpf"></span></p>
+              <p>
+                <strong>Nome:</strong> 
+                <span id="nome"></span>
+                <button id="btn-copy-nome" type="button">Copiar</button>
+              </p>
+              <p>
+                <strong>CPF:</strong> 
+                <span id="cpf"></span>
+                <button id="btn-copy-cpf" type="button">Copiar</button>
+              </p>
             </div>
             <div class="objeto-processo">
               <h4>VPE</h4>
@@ -88,11 +96,11 @@
           </div>
         </div>
       </div>
-      <!-- Coluna direita: Informações Adicionais (pode ser usada no futuro) -->
+      <!-- Coluna Direita: Informações Adicionais -->
       <div id="right-panel">
         <div class="card">
           <h3>Informações Adicionais</h3>
-          <!-- Conteúdo adicional ou instruções extras podem ser inseridos aqui -->
+          <!-- Espaço para futuras informações ou instruções extras -->
         </div>
       </div>
     </div>
