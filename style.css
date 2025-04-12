@@ -92,25 +92,19 @@ body {
   margin-bottom: 20px;
 }
 
-.content-wrapper {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Cards para os blocos da área principal */
-.card {
+/* Seção de CPFs Pendentes */
+.pending-section {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 100%;
   max-width: 500px;
+  margin: 0 auto 20px auto;
+  text-align: center;
 }
 
-#sidebar {
-  max-width: 300px;
+.pending-section h3 {
+  margin-bottom: 15px;
 }
 
 #cpf-list {
@@ -129,6 +123,28 @@ body {
   background: #f0f0f0;
 }
 
+/* Seção de Detalhes (centralizada) */
+.details-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Cartões usados nas seções */
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+/* Título centralizado para os detalhes */
+.centered-text {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Detalhes do registro */
 .detail-item {
   margin-bottom: 20px;
 }
@@ -194,7 +210,8 @@ button:hover {
 
 /* Ajustes responsivos */
 @media (min-width: 768px) {
-  .content-wrapper {
-    justify-content: space-between;
+  /* Mantém as seções centralizadas */
+  .pending-section, .details-section {
+    margin: 0 auto;
   }
 }
