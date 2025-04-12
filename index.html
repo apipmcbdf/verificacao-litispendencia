@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verificação de Litispendência</title>
   
-  <!-- Link para o favicon -->
+  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Firebase SDK (compatível com HTML puro) -->
+  <!-- Firebase SDK (HTML puro) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -35,61 +35,67 @@
     <header class="main-header">
       <h1>Verificação de Litispendência</h1>
     </header>
-
-    <!-- Seção de CPFs Pendentes (exibida acima) -->
-    <section class="pending-section card">
-      <h3>CPFs Pendentes</h3>
-      <ul id="cpf-list"></ul>
-    </section>
-
-    <!-- Seção de Detalhes (a área principal centralizada) -->
-    <section class="details-section">
-      <div id="cpf-details" class="card">
-        <h3 id="cpf-title" class="centered-text"></h3>
-        <div id="details-container" class="hidden">
-          <div class="detail-item">
-            <p><strong>Nome:</strong> <span id="nome"></span></p>
-            <p><strong>CPF:</strong> <span id="cpf"></span></p>
-          </div>
-
-          <div class="objeto-processo">
-            <h4>VPE</h4>
-            <label>Possui litispendência?</label>
-            <select id="vpe-litis">
-              <option value="">Selecione</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-              <option value="na">N/A</option>
-            </select>
-            <div id="vpe-detalhes" class="hidden">
-              <input type="text" id="vpe-processo" placeholder="Número do processo" />
-              <input type="text" id="vpe-advogado" placeholder="Nome do advogado" />
-              <textarea id="vpe-observacoes" placeholder="Observações"></textarea>
-            </div>
-          </div>
-
-          <div class="objeto-processo">
-            <h4>Auxílio Moradia</h4>
-            <label>Possui litispendência?</label>
-            <select id="aux-litis">
-              <option value="">Selecione</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-              <option value="na">N/A</option>
-            </select>
-            <div id="aux-detalhes" class="hidden">
-              <input type="text" id="aux-processo" placeholder="Número do processo" />
-              <input type="text" id="aux-advogado" placeholder="Nome do advogado" />
-              <textarea id="aux-observacoes" placeholder="Observações"></textarea>
-            </div>
-          </div>
-
-          <button id="enviar-btn">Enviar</button>
-          <p id="form-msg" class="success"></p>
+    <!-- Container das 3 colunas -->
+    <div class="content-wrapper">
+      <!-- Coluna esquerda: CPFs Pendentes -->
+      <div id="left-panel">
+        <div class="card">
+          <h3>CPFs Pendentes</h3>
+          <ul id="cpf-list"></ul>
         </div>
       </div>
-    </section>
-
+      <!-- Coluna central: Análise de: -->
+      <div id="center-panel">
+        <div class="card">
+          <h3 id="cpf-title">Análise de:</h3>
+          <div id="details-container" class="hidden">
+            <div class="detail-item">
+              <p><strong>Nome:</strong> <span id="nome"></span></p>
+              <p><strong>CPF:</strong> <span id="cpf"></span></p>
+            </div>
+            <div class="objeto-processo">
+              <h4>VPE</h4>
+              <label>Possui litispendência?</label>
+              <select id="vpe-litis">
+                <option value="">Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+                <option value="na">N/A</option>
+              </select>
+              <div id="vpe-detalhes" class="hidden">
+                <input type="text" id="vpe-processo" placeholder="Número do processo" />
+                <input type="text" id="vpe-advogado" placeholder="Nome do advogado" />
+                <textarea id="vpe-observacoes" placeholder="Observações"></textarea>
+              </div>
+            </div>
+            <div class="objeto-processo">
+              <h4>Auxílio Moradia</h4>
+              <label>Possui litispendência?</label>
+              <select id="aux-litis">
+                <option value="">Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+                <option value="na">N/A</option>
+              </select>
+              <div id="aux-detalhes" class="hidden">
+                <input type="text" id="aux-processo" placeholder="Número do processo" />
+                <input type="text" id="aux-advogado" placeholder="Nome do advogado" />
+                <textarea id="aux-observacoes" placeholder="Observações"></textarea>
+              </div>
+            </div>
+            <button id="enviar-btn">Enviar</button>
+            <p id="form-msg" class="success"></p>
+          </div>
+        </div>
+      </div>
+      <!-- Coluna direita: Informações Adicionais (pode ser usada no futuro) -->
+      <div id="right-panel">
+        <div class="card">
+          <h3>Informações Adicionais</h3>
+          <!-- Conteúdo adicional ou instruções extras podem ser inseridos aqui -->
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
