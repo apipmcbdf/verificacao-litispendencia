@@ -1,4 +1,3 @@
-/* script.js */
 // Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBar0Am_kiilFZt6RqCn0gk4IyUFH9D8Is",
@@ -50,6 +49,7 @@ loginBtn.addEventListener("click", async () => {
   const password = passwordInput.value;
   try {
     await auth.signInWithEmailAndPassword(email, password);
+    // Oculta a tela de login e exibe o painel principal
     loginScreen.classList.add("hidden");
     mainPanel.classList.remove("hidden");
     loadCpfs();
