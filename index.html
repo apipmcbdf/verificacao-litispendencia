@@ -15,62 +15,71 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <div id="login-screen">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Senha" />
-    <button id="login-btn">Entrar</button>
-    <p id="login-error" class="error"></p>
-  </div>
+  <header>
+    <h1>Verificação de Litispendência</h1>
+  </header>
+  <main>
+    <!-- Tela de Login -->
+    <section id="login-screen" class="card">
+      <h2>Login</h2>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Senha" />
+      <button id="login-btn">Entrar</button>
+      <p id="login-error" class="error"></p>
+    </section>
 
-  <div id="main-panel" class="hidden">
-    <div id="sidebar">
-      <h3>CPFs Pendentes</h3>
-      <ul id="cpf-list"></ul>
-    </div>
+    <!-- Área Principal (após o login) -->
+    <section id="main-panel" class="hidden">
+      <aside id="sidebar" class="card">
+        <h3>CPFs Pendentes</h3>
+        <ul id="cpf-list"></ul>
+      </aside>
 
-    <div id="cpf-details">
-      <h3 id="cpf-title"></h3>
-      <div id="details-container" class="hidden">
-        <p><strong>Nome:</strong> <span id="nome"></span></p>
-        <p><strong>CPF:</strong> <span id="cpf"></span></p>
-
-        <div class="objeto-processo">
-          <h4>VPE</h4>
-          <label>Possui litispendência?</label><br/>
-          <select id="vpe-litis">
-            <option value="">Selecione</option>
-            <option value="sim">Sim</option>
-            <option value="nao">Não</option>
-            <option value="na">N/A</option>
-          </select>
-          <div id="vpe-detalhes" class="hidden">
-            <input type="text" id="vpe-processo" placeholder="Número do processo" />
-            <input type="text" id="vpe-advogado" placeholder="Nome do advogado" />
-            <textarea id="vpe-observacoes" placeholder="Observações"></textarea>
+      <div id="cpf-details" class="card">
+        <h3 id="cpf-title"></h3>
+        <div id="details-container" class="hidden">
+          <div class="detail-item">
+            <p><strong>Nome:</strong> <span id="nome"></span></p>
+            <p><strong>CPF:</strong> <span id="cpf"></span></p>
           </div>
-        </div>
 
-        <div class="objeto-processo">
-          <h4>Auxílio Moradia</h4>
-          <label>Possui litispendência?</label><br/>
-          <select id="aux-litis">
-            <option value="">Selecione</option>
-            <option value="sim">Sim</option>
-            <option value="nao">Não</option>
-            <option value="na">N/A</option>
-          </select>
-          <div id="aux-detalhes" class="hidden">
-            <input type="text" id="aux-processo" placeholder="Número do processo" />
-            <input type="text" id="aux-advogado" placeholder="Nome do advogado" />
-            <textarea id="aux-observacoes" placeholder="Observações"></textarea>
+          <div class="objeto-processo">
+            <h4>VPE</h4>
+            <label>Possui litispendência?</label>
+            <select id="vpe-litis">
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+              <option value="na">N/A</option>
+            </select>
+            <div id="vpe-detalhes" class="hidden">
+              <input type="text" id="vpe-processo" placeholder="Número do processo" />
+              <input type="text" id="vpe-advogado" placeholder="Nome do advogado" />
+              <textarea id="vpe-observacoes" placeholder="Observações"></textarea>
+            </div>
           </div>
-        </div>
 
-        <button id="enviar-btn">Enviar</button>
-        <p id="form-msg" class="success"></p>
+          <div class="objeto-processo">
+            <h4>Auxílio Moradia</h4>
+            <label>Possui litispendência?</label>
+            <select id="aux-litis">
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+              <option value="na">N/A</option>
+            </select>
+            <div id="aux-detalhes" class="hidden">
+              <input type="text" id="aux-processo" placeholder="Número do processo" />
+              <input type="text" id="aux-advogado" placeholder="Nome do advogado" />
+              <textarea id="aux-observacoes" placeholder="Observações"></textarea>
+            </div>
+          </div>
+
+          <button id="enviar-btn">Enviar</button>
+          <p id="form-msg" class="success"></p>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </body>
 </html>
