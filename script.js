@@ -35,12 +35,11 @@ const auxDetalhes = document.getElementById("aux-detalhes");
 
 let currentDocId = null;
 
-// Exibir ou ocultar detalhes de VPE conforme a seleção
+// Exibir ou ocultar detalhes conforme a seleção
 vpeSelect.addEventListener("change", () => {
   vpeDetalhes.classList.toggle("hidden", vpeSelect.value !== "sim");
 });
 
-// Exibir ou ocultar detalhes do Auxílio Moradia conforme a seleção
 auxSelect.addEventListener("change", () => {
   auxDetalhes.classList.toggle("hidden", auxSelect.value !== "sim");
 });
@@ -59,7 +58,7 @@ loginBtn.addEventListener("click", async () => {
   }
 });
 
-// Carregar lista de CPFs pendentes
+// Carregar CPFs pendentes
 async function loadCpfs() {
   cpfList.innerHTML = "";
   const snapshot = await db.collection("cpfsPendentes").get();
@@ -76,7 +75,7 @@ async function loadCpfs() {
   });
 }
 
-// Carregar detalhes de um CPF selecionado
+// Carregar detalhes do CPF selecionado
 async function loadDetails(docId) {
   const docRef = db.collection("cpfsPendentes").doc(docId);
   const docSnap = await docRef.get();
@@ -89,7 +88,6 @@ async function loadDetails(docId) {
     formMsg.textContent = "";
     formMsg.style.color = "green";
 
-    // Exibir a seção VPE se ainda não tiver sido verificada
     if (!data.vpe?.litispendencia) {
       vpeSelect.value = "";
       vpeDetalhes.classList.add("hidden");
@@ -98,7 +96,6 @@ async function loadDetails(docId) {
       document.getElementById("vpe-litis").parentElement.classList.add("hidden");
     }
 
-    // Exibir a seção Auxílio Moradia se ainda não tiver sido verificada
     if (!data.auxilio?.litispendencia) {
       auxSelect.value = "";
       auxDetalhes.classList.add("hidden");
@@ -152,7 +149,6 @@ enviarBtn.addEventListener("click", async () => {
     };
   }
 
-  // Marcar como verificado se ambos já estiverem preenchidos ou forem preenchidos agora
   const doc = await db.collection("cpfsPendentes").doc(currentDocId).get();
   const existing = doc.data();
   const vpeChecked = vpeLitis || existing.vpe?.litispendencia;
